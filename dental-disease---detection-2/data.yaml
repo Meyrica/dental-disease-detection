@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['Calculus', 'Caries', 'Gingivitis', 'Healthy', 'Plaque']
+
+roboflow:
+  workspace: bunga-rbhq8
+  project: dental-disease-detection-blc7j
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/bunga-rbhq8/dental-disease-detection-blc7j/dataset/2

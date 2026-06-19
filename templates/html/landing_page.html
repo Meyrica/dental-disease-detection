@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing_page.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Dentify</div>
+    <ul class="menu">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#features">ABOUT</a></li>
+        <li><a href="#diseases">DETECTED</a></li>
+        <li><a href="#guide">GUIDE</a></li>
+    </ul>
+    <a href="/model" class="btn">Get Started</a>
+</nav>
+
+    <!-- HOME SECTION -->
+    <section class="hero" id="home">
+        <div class="left">
+            <span>AI DENTAL DETECTION</span>
+            <h1>
+                Smart Dental Disease Detection
+            </h1>
+            <p>
+                Detect dental diseases quickly using Artificial Intelligence.
+                Fast, accurate, and easy to use.
+            </p>
+            <a href="#features" class="hero-btn">
+                Read More → 
+            </a>
+        </div>
+        <div class="right">
+            <div class="glow"></div>
+            <img src="static/img/untu.png" alt="tooth">
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='img/camera.jpg') }}" class="feature-icon" alt="Camera">
+                <h3>Image Based Detection</h3>
+                <p>The system analyzes dental images using deep learning technology to detect dental disease.</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='img/ai.jpg') }}" class="feature-icon" alt="AI">
+                <h3>Powered by Artificial Intelligence</h3>
+                <p>Powered by <strong>YOLO26</strong>, a state-of-the-art object detection model specially trained on dental disease datasets to produce fast and accurate predictions.</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='img/fast.jpg') }}" class="feature-icon" alt="Fast">
+                <h3>Fast & Easy to Use</h3>
+                <p>Users simply need to upload a tooth image and the system will provide instant results within seconds.</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='img/shield.jpg') }}" class="feature-icon" alt="Shield">
+                <h3>Supports Early Detection</h3>
+                <p>Helps identify dental disease early so it can be used as an initial reference before visiting a dentist.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISEASE SECTION -->
+    <section class="diseases" id="diseases">
+        <div class="diseases-header">
+            <h2>ILUSTRATION OF DENTAL DISEASE</h2>
+            <p>Here are some examples of dental diseases that can be detected by the system.</p>
+        </div>
+        <div class="diseases-grid">
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='img/gingivitis.jpg') }}" alt="Gingivitis">
+                <div class="disease-info">
+                    <h3>Gingivitis</h3>
+                    <p>Inflammation of the gums characterized by redness, swelling and easy bleeding.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='img/plaque.jpg') }}" alt="Plaque">
+                <div class="disease-info">
+                    <h3>Plaque</h3>
+                    <p>A sticky layer containing bacteria that sticks to the surface of the teeth and can cause tooth decay.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='img/healthy.jpg') }}" alt="Healthy">
+                <div class="disease-info">
+                    <h3>Healthy</h3>
+                    <p>Condition of teeth and gums that are healthy, clean, and free from signs of disease.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='img/calculus.jpg') }}" alt="Calculus">
+                <div class="disease-info">
+                    <h3>Calculus</h3>
+                    <p>Dental plaque hardens due to the accumulation of minerals over a long period of time.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='img/caries.jpg') }}" alt="Caries">
+                <div class="disease-info">
+                    <h3>Caries</h3>
+                    <p>Damage to hard tooth tissue caused by the demineralization of enamel by bacterial acid</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO USE SECTION -->
+    <section class="guide" id="guide">
+        <div class="guide-left">
+            <span class="guide-label">● How to use</span>
+            <h2>How to use?</h2>
+            <p>Follow these simple steps to automatically detect your teeth condition using AI.</p>
+            <a href="/model" class="guide-btn">Try Now →</a>
+        </div>
+        <div class="guide-right">
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <img src="{{ url_for('static', filename='img/camera.jpg') }}" alt="Upload">
+                </div>
+                <div class="guide-text">
+                    <h3>Upload Teeth Photos</h3>
+                    <p>Take a photo of your teeth in good lighting, then upload it to our system.</p>
+                </div>
+            </div>
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <img src="{{ url_for('static', filename='img/ai.jpg') }}" alt="Upload">
+                </div>
+                <div class="guide-text">
+                    <h3>AI Detection Process</h3>
+                    <p>The YOLO26 model will analyze the image and detect the condition of the teeth automatically.</p>
+                </div>
+            </div>
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <img src="{{ url_for('static', filename='img/result.jpg') }}" alt="Upload">
+                </div>
+                <div class="guide-text">
+                    <h3>View Results & Recommendations</h3>
+                    <p>Get the detection results along with the model confidence level as an initial reference.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="{{ url_for('static', filename='navbar.js') }}"></script>
+</body>
+</html>

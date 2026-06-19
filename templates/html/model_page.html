@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='model_page.css') }}">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">Dentify</div>
+        <ul class="menu">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/#features">ABOUT</a></li>
+            <li><a href="/#diseases">DETECTED</a></li>
+            <li><a href="/#guide">GUIDE</a></li>
+        </ul>
+        <a href="/" class="back-btn">← Back</a>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h1>Dental Disease Detection</h1>
+        <p>Upload a photo of your teeth and our YOLO26 model will automatically detect your dental condition.</p>
+    </div>
+
+    <!-- MAIN -->
+    <div class="container">
+        <div class="main-grid">
+
+            <!-- UPLOAD CARD -->
+            <div class="card upload-card">
+
+                <!-- TAB TOGGLE -->
+                <div class="tab-toggle">
+                    <button class="tab-btn active" id="tabUpload" onclick="switchTab('upload')">Upload Photo</button>
+                    <button class="tab-btn" id="tabCamera" onclick="switchTab('camera')">Live Camera</button>
+                </div>
+
+                <!-- UPLOAD MODE -->
+                <div id="uploadMode">
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-icon"></div>
+                        <p class="upload-text">Click to upload photo</p>
+                        <p class="upload-sub">PNG, JPG, JPEG • Max. 10MB</p>
+                        <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="previewImage(this)">
+                    </div>
+
+                    <div id="preview" style="display:none">
+                        <img id="previewImg" src="" alt="Preview">
+                    </div>
+
+                    <button class="detect-btn" onclick="uploadImage()" id="detectBtn">
+                        Detect Now →
+                    </button>
+
+                    <button class="reset-btn" onclick="resetForm()" id="resetBtn" style="display:none">
+                        Upload New Photo
+                    </button>
+                </div>
+
+                <!-- CAMERA MODE -->
+                <div id="cameraMode" style="display:none">
+                    <div class="camera-container">
+                        <video id="cameraFeed" autoplay playsinline muted></video>
+                        <div class="camera-overlay">
+                            <div class="scan-line"></div>
+                        </div>
+                        <canvas id="captureCanvas" style="display:none"></canvas>
+                    </div>
+
+                    <div class="camera-status" id="cameraStatus">
+                        <div class="status-dot"></div>
+                        <span id="cameraStatusText">Starting camera...</span>
+                    </div>
+
+                    <button class="detect-btn" onclick="startLiveDetection()" id="startCameraBtn">
+                        ▶ Start Live Detection
+                    </button>
+
+                    <button class="reset-btn" onclick="stopLiveDetection()" id="stopCameraBtn" style="display:none">
+                        ⏹ Stop Detection
+                    </button>
+                </div>
+
+                <!-- LOADING -->
+                <div id="loading">
+                    <div class="spinner"></div>
+                    <span>Processing...</span>
+                </div>
+            </div>
+
+            <!-- RESULT CARD -->
+            <div class="card result-card">
+                <div class="card-title">
+                    <span></span> Detection Results
+                </div>
+
+                <div id="empty-state">
+                    <div class="empty-icon"></div>
+                    <p>The detection results will appear here</p>
+                    <p class="upload-sub">Upload a photo or use live camera</p>
+                </div>
+
+                <div id="result" style="display:none">
+                    <img id="resultImg" src="" alt="Detection result">
+                </div>
+
+                <div id="detections" style="display:none">
+                    <div class="detections-header">Condition Detected</div>
+                    <div id="detections-list"></div>
+                    <p class="disclaimer">* These results are an initial screening and do not replace a dentist's diagnosis.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/model_page.js') }}"></script>
+</body>
+</html>

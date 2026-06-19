@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi Penyakit Gigi - YOLO26</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+        h1 { font-size: 1.4rem; }
+        #preview img, #result img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        #detections {
+            margin-top: 16px;
+        }
+        .detection-item {
+            background: #f3f3f3;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+        }
+        button {
+            background: #6c2bd9;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        #loading { display: none; color: #6c2bd9; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🦷 Deteksi Penyakit Gigi (YOLO26)</h1>
+    <p>Upload foto gigi untuk dideteksi otomatis oleh model.</p>
+
+    <input type="file" id="imageInput" accept="image/*">
+    <br>
+    <button onclick="uploadImage()">Deteksi Sekarang</button>
+
+    <div id="loading">⏳ Sedang memproses...</div>
+
+    <div id="result"></div>
+    <div id="detections"></div>
+
+    <script>
+        async function uploadImage() {
+            const input = document.getElementById("imageInput");
+            if (!input.files.length) {
+                alert("Pilih gambar dulu!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", input.files[0]);
+
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("detections").innerHTML = "";
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+
+                document.getElementById("loading").style.display = "none";
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                // Tampilkan gambar hasil anotasi
+                document.getElementById("result").innerHTML =
+                    `<img src="${data.annotated_image}" alt="Hasil deteksi">`;
+
+                // Tampilkan daftar deteksi
+                let html = `<h3>Hasil Deteksi (${data.total_detections} ditemukan):</h3>`;
+                data.detections.forEach(d => {
+                    html += `<div class="detection-item">
+                        <strong>${d.class}</strong> - Confidence: ${d.confidence}%
+                    </div>`;
+                });
+                document.getElementById("detections").innerHTML = html;
+
+            } catch (err) {
+                document.getElementById("loading").style.display = "none";
+                alert("Terjadi error: " + err);
+            }
+        }
+    </script>
+</body>
+</html>
